@@ -1,6 +1,30 @@
 import { DB_KEY } from './api.js';
 
-let modifiedTitle;
+let titleLowercase;
+
+function mixMot(mot){
+    let motArray = mot.split('');
+
+    if (mot.length>4) {
+        let firstLetter = motArray[0];
+        let lastLetter = motArray[motArray.length-1];
+
+        motArray = motArray.slice(1, motArray.length-1);
+      
+        motArray.sort(function() {
+            return 0.5 - Math.random();
+        });  
+        mot = firstLetter + motArray.join('') + lastLetter;
+    }
+    else{
+        motArray.sort(function() {
+            return 0.5 - Math.random();
+        });  
+        mot = motArray.join('');
+    }
+    
+  return mot;
+}
 
 async function getMovie(){
     const randomNumberPage = Math.floor((Math.random() * 10) + 1);
@@ -13,54 +37,43 @@ async function getMovie(){
     const randomNumberMovie = Math.floor(Math.random() * 20);
     console.log(randomNumberMovie);
 
+    console.log(results.results[randomNumberMovie]);
+
     const chosenMovieTitle = results.results[randomNumberMovie].title;
 
     console.log(chosenMovieTitle);
 
-    document.querySelector('.phrase').innerHTML = `${chosenMovieTitle}`;
+    let chosenMovieTitleArray = chosenMovieTitle.split(' ');
+    console.log(chosenMovieTitleArray);
+    for (let i=0; i<chosenMovieTitleArray.length ;i++) {
+        chosenMovieTitleArray[i] = mixMot(chosenMovieTitleArray[i]);
+    }
+    console.log(chosenMovieTitleArray);
+    const chosenMovieTitleMixed = chosenMovieTitleArray.join(' ');
+    console.log(chosenMovieTitleMixed);
 
-    modifiedTitle = document.querySelector('.phrase').textContent.toLowerCase();
+    document.querySelector('.phrase').innerHTML = `${chosenMovieTitleMixed}`;
+
+    titleLowercase = chosenMovieTitle.toLowerCase();
     console.log("TITRE LOWERCASE -->");
-    console.log(modifiedTitle);
+    console.log(titleLowercase);
+
+    // titleLowercase = titleLowercase.split(' ');
+    // console.log(titleLowercase);
 }
 
-getMovie().then(async () => {
-
-    modifiedTitle = modifiedTitle.split(' ');
-    console.log(modifiedTitle);
-
-    let i;
-    let requestSynonyms;
-    let resultSynonyms;
+getMovie();
 
 
-    for(i=0; i < modifiedTitle.length; i++) {
-        if(modifiedTitle[i].length>3){
-            requestSynonyms = await fetch(`https://www.dictionaryapi.com/api/v3/references/ithesaurus/json/${modifiedTitle[i]}?key=c8dea4be-5e38-451e-86c7-6a1e2a2e9221`);
-            resultSynonyms = await requestSynonyms.json();
-            console.log(resultSynonyms);
-            if(resultSynonyms.meta.syns.length!=0){
-                modifiedTitle[i] = resultSynonyms[0].meta.syns[0][0];
-            }
-        }
-        console.log(modifiedTitle[i]);
-        };
+// async function getModifiedMovieTitle(){
+//     const request = await fetch(`https://www.dictionaryapi.com/api/v3/references/ithesaurus/json/${titleLowercase}?key=c8dea4be-5e38-451e-86c7-6a1e2a2e9221`);
+//     const results = await request.json();
+
+//     console.log(results);
+
+// }
 
 
-    // const request = await fetch(`https://www.dictionaryapi.com/api/v3/references/ithesaurus/json/${modifiedTitle}?key=c8dea4be-5e38-451e-86c7-6a1e2a2e9221`);
-    // const results = await request.json();
-
-    // console.log(results);
-});
-
-
-async function getModifiedMovieTitle(){
-    const request = await fetch(`https://www.dictionaryapi.com/api/v3/references/ithesaurus/json/${modifiedTitle}?key=c8dea4be-5e38-451e-86c7-6a1e2a2e9221`);
-    const results = await request.json();
-
-    console.log(results);
-
-}
 
 
 
@@ -73,7 +86,7 @@ const verifyAnswer = async (e) => {
     const userAnswer = document.querySelector('form input[type="text"]').value.toLowerCase();;
     console.log(userAnswer);
 
-    if(modifiedTitle == userAnswer) {
+    if(titleLowercase == userAnswer) {
         console.log("ce booooooon");
         const verificationRight = document.querySelector('.verification');
         verificationRight.innerHTML = "c'est bon !";
