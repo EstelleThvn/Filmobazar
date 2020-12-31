@@ -14,11 +14,7 @@ function mixMot(mot){
         for (let i = motArray.length - 1; i > 0; i--) {
             let j = Math.floor(Math.random() * (i + 1));
 
-            // let t = motArray[i]; 
-            // motArray[i] = motArray[j]; 
-            // motArray[j] = t
             //on permute
-
             [motArray[i], motArray[j]] = [motArray[j], motArray[i]];
           }
         mot = firstLetter + motArray.join('') + lastLetter;
@@ -42,43 +38,40 @@ let chosenMovieReleaseDate;
 
 async function getMovie(){
     const randomNumberPage = Math.floor((Math.random() * 10) + 1);
-    console.log(randomNumberPage);
+    // console.log(randomNumberPage);
     const request = await fetch(`https://api.themoviedb.org/3/movie/top_rated?api_key=${DB_KEY}&language=en-US&page=${randomNumberPage}`);
     const results = await request.json();
 
-    console.log(results);
+    // console.log(results);
 
     const randomNumberMovie = Math.floor(Math.random() * 20);
-    console.log(randomNumberMovie);
+    // console.log(randomNumberMovie);
 
-    console.log(results.results[randomNumberMovie]);
+    // console.log(results.results[randomNumberMovie]);
 
     chosenMovieTitle = results.results[randomNumberMovie].title;
 
-    console.log(chosenMovieTitle);
+    // console.log(chosenMovieTitle);
 
     chosenMovieSynopsis = results.results[randomNumberMovie].overview;
-    console.log(chosenMovieSynopsis);
+    // console.log(chosenMovieSynopsis);
     chosenMoviePoster = results.results[randomNumberMovie].poster_path;
     chosenMovieReleaseDate = changeDateFormat(results.results[randomNumberMovie].release_date);
 
 
     let chosenMovieTitleArray = chosenMovieTitle.split(' ');
-    console.log(chosenMovieTitleArray);
+    // console.log(chosenMovieTitleArray);
     for (let i=0; i<chosenMovieTitleArray.length ;i++) {
         chosenMovieTitleArray[i] = mixMot(chosenMovieTitleArray[i]);
     }
-    console.log(chosenMovieTitleArray);
+    // console.log(chosenMovieTitleArray);
     const chosenMovieTitleMixed = chosenMovieTitleArray.join(' ');
-    console.log(chosenMovieTitleMixed);
+    // console.log(chosenMovieTitleMixed);
 
     document.querySelector('.phrase').innerHTML = `${chosenMovieTitleMixed}`;
 
     titleLowercase = chosenMovieTitle.toLowerCase();
-    console.log("TITRE LOWERCASE -->");
-    console.log(titleLowercase);
-
-    // titleLowercase = titleLowercase.split(' ');
+    // console.log("TITRE LOWERCASE -->");
     // console.log(titleLowercase);
 }
 
@@ -95,10 +88,10 @@ const verifyAnswer = async (e) => {
     e.preventDefault();
 
     const userAnswer = document.querySelector('form input[type="text"]').value.toLowerCase();;
-    console.log(userAnswer);
+    // console.log(userAnswer);
 
     if(titleLowercase == userAnswer) {
-        console.log("ce booooooon");
+        // console.log("c'est bon");
         nbRightAnswer++
 
         if(nbRightAnswer === 1) {
@@ -107,19 +100,15 @@ const verifyAnswer = async (e) => {
         
         if(nbUserTries===2){
             document.querySelector('.indice').innerHTML = ``;
-            // const indice = document.querySelector('.indice');
-            // if(indice !== null){
-            // indice.parentNode.removeChild(indice);
-            // }
         }
     }
     else if (userAnswer == 0) {
-        console.log("c'est pas une réponse ça.");
+        // console.log("c'est pas une réponse ça.");
     }
     else{
-        console.log("pa bon.");
+        // console.log("pa bon.");
         nbUserTries++;
-        console.log(nbUserTries);
+        // console.log(nbUserTries);
 
         if(nbUserTries === 1){
             document.querySelector('.essais').children[0].classList.add("red-cross-container");
@@ -127,22 +116,12 @@ const verifyAnswer = async (e) => {
         else if(nbUserTries === 2) {
             document.querySelector('.indice').innerHTML = `<p>Hint</p>
             <p>${chosenMovieSynopsis}</p>`;
-
-            // let newDivIndice = document.createElement("div");
-            // newDivIndice.classList.add("indice");
-            // newDivIndice.innerHTML = `<p>Hint</p>
-            // <p>${chosenMovieSynopsis}</p>`;
-            // document.querySelector('section').appendChild(newDivIndice);
     
             document.querySelector('.essais').children[1].classList.add("red-cross-container");
         }
         else if(nbUserTries === 3) {
-            console.log("afficher la réponse");
+            // console.log("afficher la réponse");
             document.querySelector('.indice').innerHTML = ``;
-            // const indice = document.querySelector('.indice');
-            // if(indice !== null){
-            // indice.parentNode.removeChild(indice);
-            // }
             showMovieDetails();
             document.querySelector('.essais').children[2].classList.add("red-cross-container");
         }
@@ -153,7 +132,7 @@ btn.addEventListener('submit', (e) => {verifyAnswer(e)});
 
 
 const btnChangerPhrase = document.querySelector('.regenere');
-console.log(btnChangerPhrase);
+// console.log(btnChangerPhrase);
 const ChangeTitle = async (e) => {
     e.preventDefault();
 
@@ -162,15 +141,6 @@ const ChangeTitle = async (e) => {
     nbRightAnswer = 0;
 
     document.querySelector('.infos-film').innerHTML = ``;
-    // const infosFilm = document.querySelector('.infos-film');
-    // if(infosFilm !== null){
-    //     infosFilm.parentNode.removeChild(infosFilm);
-    // }
-
-    // const indice = document.querySelector('.indice');
-    // if(indice !== null){
-    //     indice.parentNode.removeChild(indice);
-    // }
 
     document.querySelector('.indice').innerHTML = ``;
 
@@ -193,19 +163,6 @@ function showMovieDetails(){
         </div>
         <p>${chosenMovieSynopsis}</p>
         </div>`;
-
-        // let newDivInfosFilm = document.createElement("div");
-        // newDivInfosFilm.classList.add("infos-film");
-        // newDivInfosFilm.innerHTML = `<img src="https://image.tmdb.org/t/p/w500${chosenMoviePoster}">
-        // <div class="text-infos-film">
-        // <h1>${chosenMovieTitle}</h1>
-        // <div>
-        // <p>Release date</p>
-        // <p>${chosenMovieReleaseDate}</p>
-        // </div>
-        // <p>${chosenMovieSynopsis}</p>
-        // </div>`;
-        // document.querySelector('section').appendChild(newDivInfosFilm);
 }
 
 
@@ -251,7 +208,7 @@ function changeDateFormat(date){
         break;
       }
 
-    console.log(dateArray);
+    // console.log(dateArray);
 
     date = dateArray.join(' ');
 
