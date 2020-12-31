@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="38" height="38" viewBox="0 0 38 38">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_49" data-name="Rectangle 49" width="38" height="38" transform="translate(1827 49)" fill="none"/>
+    </clipPath>
+  </defs>
+  <g id="arrow-next" transform="translate(-1827 -49)" clip-path="url(#clip-path)">
+    <g id="Groupe_1" data-name="Groupe 1" transform="translate(2)">
+      <path id="Polygone_1" data-name="Polygone 1" d="M13,0,26,18H0Z" transform="translate(1863 55) rotate(90)" fill="#801336"/>
+      <rect id="Rectangle_44" data-name="Rectangle 44" width="23" height="8" transform="translate(1825 64)" fill="#801336"/>
+    </g>
+  </g>
+</svg>

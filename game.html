@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://necolas.github.io/normalize.css/8.0.1/normalize.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;500&family=Roboto:wght@300;400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles-game.css">
+    <title>Filmobazar | Game</title>
+</head>
+
+<body>
+    <header>
+        <a href="index.html" class="homepage-btn">Filmobazar</a>
+        <div class="regenere regenere-container">
+            <!-- <button class="regenere">Another title</button> -->
+            <img src="images/arrow-next.svg" alt="">
+        </div>
+    </header>
+
+    <section>
+        <div class="container-game">
+            <h1 class="phrase modified-title"></h1>
+            <form action="">
+                <input type="text" placeholder="Your answer"></input>
+                <button type="submit" class="btn-verifier">Verify</button>
+            </form>
+            <!-- <div class="verification"></div> -->
+            <div class="essais">
+                <div class="cross-container"></div>
+                <div class="cross-container"></div>
+                <div class="cross-container"></div>
+            </div>
+        </div>
+
+        <div class="indice"></div>
+        <div class="infos-film"></div>
+
+    </section>
+
+
+    <script type="module" src="main.js"></script>
+</body>
+
+</html>
