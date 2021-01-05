@@ -1,5 +1,3 @@
-import { DB_KEY } from './api.js';
-
 let titleLowercase;
 
 function mixMot(mot){
@@ -39,7 +37,7 @@ let chosenMovieReleaseDate;
 async function getMovie(){
     const randomNumberPage = Math.floor((Math.random() * 10) + 1);
     // console.log(randomNumberPage);
-    const request = await fetch(`https://api.themoviedb.org/3/movie/top_rated?api_key=${DB_KEY}&language=en-US&page=${randomNumberPage}`);
+    const request = await fetch(`https://api.themoviedb.org/3/movie/top_rated?api_key=debebb277ae11a5e8fbef27fec8630ba&language=en-US&page=${randomNumberPage}`);
     const results = await request.json();
 
     // console.log(results);
